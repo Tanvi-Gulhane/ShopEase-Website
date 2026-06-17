@@ -1,0 +1,34 @@
+
+pipeline {
+    agent any
+    
+    environment {
+        TARGET_SERVER = '172.31.30.182'
+        TARGET_DIR    = '/var/www/html/shopease'
+        SSH_CRED_ID   = 'node-pipeline-key' 
+    }
+
+    stages {
+        stage('Checkout Source') {
+            steps {
+                // Replace with your actual ShopEase repository details
+                git branch: 'main', url: ''
+            }
+        }
+        
+        stage('Deploy to Target Server') {
+            steps {
+                sshagent(credentials: ["${SSH_CRED_ID}"]) {
+                    // Syncs files to target server directory
+                    sh "rsync -avz --delete ./* ubuntu@${TARGET_SERVER}:${TARGET_DIR}"
+                }
+            }
+        }
+    }
+    
+    post {
+        success {
+            echo "ShopEase successfully deployed! Verify at http://${TARGET_SERVER}/shopease"
+        }
+    }
+}
