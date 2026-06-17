@@ -12,7 +12,7 @@ pipeline {
         stage('Checkout Source') {
             steps {
                 // Replace with your actual ShopEase repository details
-                git branch: 'main', url: ''
+                git branch: 'main', url: 'https://github.com/Tanvi-Gulhane/ShopEase-Website.git'
             }
         }
         
