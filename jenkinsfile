@@ -3,7 +3,7 @@ pipeline {
     agent any
     
     environment {
-        TARGET_SERVER = '172.31.30.182'
+        TARGET_SERVER = ''
         TARGET_DIR    = '/var/www/html/shopease'
         SSH_CRED_ID   = 'node-pipeline-key' 
     }
